@@ -1,72 +1,32 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI/CD
+name: CI
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
-  postgres:
-    runs-on: ubuntu-latest
-    container: node:latest
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_DB: movie_library
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_PORT: 5432
-          POSTGRES_USER: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-    steps:
-      - name: Install PostgreSQL client
-        run: |
-          apt-get update
-          apt-get install --yes postgresql-client
-      - name: Query database
-        run: psql -h postgres -d movie_library -U postgres -c 'SELECT 1;'
-        env:
-          PGPASSWORD: postgres
   build:
-    needs: postgres
-    
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
-      env:
-        DATABASE_URL_PROD: ${{ env.DATABASE_URL_PROD }}
-        DATABASE_URL_DEV: ${{ env.DATABASE_URL_DEV }}
-        DATABASE_URL_TEST: ${{ env.DATABASE_URL_TEST }}
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "lucky-movie-library"
-          heroku_email: "luckzivanius@gmail.com"
+        node-version: 18
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Test
+      run: npm test
+
+    env:
+      DATABASE_URL_PROD: ${{ secrets.DATABASE_URL_PROD }}
+      DATABASE_URL_DEV: ${{ secrets.DATABASE_URL_DEV }}
+      DATABASE_URL_TEST: ${{ secrets.DATABASE_URL_TEST }}
