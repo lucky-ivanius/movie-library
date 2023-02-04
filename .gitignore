@@ -1,0 +1,12 @@
+# dotenv environment variables file
+.env
+.env.test
+
+# Typescript build
+build
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Dependency directories
+node_modules
