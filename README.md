@@ -2,6 +2,20 @@
 
 > Simple movie library - Back-end only.
 
+## Stacks
+
+- Node.js
+- TypeScript
+- Sequelize.js
+- GraphQL
+
+## Modules
+
+- Movies
+  |- Movie
+  |- Actor
+  |- Author
+
 ## Installation
 
 Clone the repository:
@@ -35,6 +49,10 @@ Start the server in development mode (with nodemon):
 ```
 npm run start:dev
 ```
+
+## GraphQL
+
+You can click [`here`](./src/modules/movies/infrastructure/graphql/README.md) for GraphQL Docs.
 
 ## Scripts
 

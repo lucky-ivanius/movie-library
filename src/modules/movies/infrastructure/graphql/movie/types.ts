@@ -1,5 +1,6 @@
 import {
   GraphQLFloat,
+  GraphQLID,
   GraphQLInputObjectType,
   GraphQLInt,
   GraphQLList,
@@ -28,16 +29,16 @@ export const createMovieInput = new GraphQLInputObjectType({
   fields: () => ({
     name: { type: GraphQLString },
     year: { type: GraphQLInt },
-    actors: { type: new GraphQLList(GraphQLString) },
-    authors: { type: new GraphQLList(GraphQLString) }
+    actors: { type: new GraphQLList(GraphQLID) },
+    authors: { type: new GraphQLList(GraphQLID) }
   })
 });
 
 export const updateMovieDetailListInput = new GraphQLInputObjectType({
   name: 'UpdateMovieDetailListInput',
   fields: () => ({
-    new: { type: new GraphQLList(GraphQLString) },
-    removes: { type: new GraphQLList(GraphQLString) }
+    new: { type: new GraphQLList(GraphQLID) },
+    removes: { type: new GraphQLList(GraphQLID) }
   })
 });
 
