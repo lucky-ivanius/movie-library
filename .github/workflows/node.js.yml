@@ -56,6 +56,10 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+      env:
+        DATABASE_URL_PROD: ${{ env.DATABASE_URL_PROD }}
+        DATABASE_URL_DEV: ${{ env.DATABASE_URL_DEV }}
+        DATABASE_URL_TEST: ${{ env.DATABASE_URL_TEST }}
   deploy:
     needs: build
     runs-on: ubuntu-latest
