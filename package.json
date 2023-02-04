@@ -20,7 +20,7 @@
     "prettier-watch:default": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
-    "test": "jest --runInBand --detectOpenHandles",
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles",
     "test:dev": "jest --watchAll",
     "prepare": "husky install",
     "postinstall": "tsc"

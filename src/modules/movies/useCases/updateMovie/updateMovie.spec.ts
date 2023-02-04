@@ -18,9 +18,9 @@ const feature = loadFeature(path.join(__dirname, './updateMovie.feature'));
 defineFeature(feature, async (test) => {
   const { models } = sequelize;
 
-  const movieRepo = new MovieRepo(models);
   const actorRepo = new ActorRepo(models);
   const authorRepo = new AuthorRepo(models);
+  const movieRepo = new MovieRepo(models);
   const updateMovieUseCase = new UpdateMovieUseCase(
     movieRepo,
     actorRepo,
