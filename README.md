@@ -70,7 +70,3 @@ You can click [`here`](./src/modules/movies/infrastructure/graphql/README.md) fo
 ## Author
 
 Lucky Ivanius (luckzivanius@gmail.com)
-
-## License
-
-This project is licensed under the GPL-3.0-only license.
