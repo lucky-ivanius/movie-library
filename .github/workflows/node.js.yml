@@ -23,8 +23,18 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Install PostgreSQL
+        run: sudo apt-get install postgresql postgresql-contrib
+
+      - name: Start PostgreSQL service
+        run: sudo service postgresql start
+
+      - name: Set up database
+        run: |
+          sudo -u postgres psql -c "CREATE USER admin WITH PASSWORD 'admin';"
+          sudo -u postgres psql -c "CREATE DATABASE movie_library OWNER admin;"
+
       - name: Test
         run: npm test
-
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}

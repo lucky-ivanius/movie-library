@@ -6,8 +6,8 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
 
 const defaultDatabaseUrl =
-  'postgres://{useername}:{password}@localhost:5432/{database_name}';
+  'postgres://{username}:{password}@localhost:5432/{database_name}';
 
-const databaseUrl = process.env.DATABASE_URL_PROD || defaultDatabaseUrl;
+const databaseUrl = process.env.DATABASE_URL || defaultDatabaseUrl;
 
 export { isProduction, isDevelopment, isTest, databaseUrl };
