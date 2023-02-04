@@ -2,31 +2,29 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 18
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Build
-      run: npm run build
+      - name: Build
+        run: npm run build
 
-    - name: Test
-      run: npm test
+      - name: Test
+        run: npm test
 
     env:
-      DATABASE_URL_PROD: ${{ secrets.DATABASE_URL_PROD }}
-      DATABASE_URL_DEV: ${{ secrets.DATABASE_URL_DEV }}
-      DATABASE_URL_TEST: ${{ secrets.DATABASE_URL_TEST }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
