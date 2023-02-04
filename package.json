@@ -8,8 +8,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf ./build && tsc",
-    "start": "NODE_ENV=production npm run build && node build/index.js",
-    "start:dev": "NODE_ENV=development npx nodemon",
+    "start": "npm run build && node build/index.js",
+    "start:dev": "npx nodemon",
     "prettier-format": "run-script-os",
     "prettier-format:win32": "prettier --config .prettierrc \"./src/**/*.ts\" --write",
     "prettier-format:darwin:linux": "prettier --config .prettierrc 'src/**/*.ts' --write",
@@ -20,8 +20,8 @@
     "prettier-watch:default": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
-    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles",
-    "test:dev": "NODE_ENV=test jest --watchAll",
+    "test": "jest --runInBand --detectOpenHandles",
+    "test:dev": "jest --watchAll",
     "prepare": "husky install",
     "postinstall": "tsc"
   },
