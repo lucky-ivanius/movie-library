@@ -1,5 +1,5 @@
 Feature: Update movie details
-  # from this
+
   Scenario: Update movie with valid details (without actors/authors)
     Given a valid movie details
     When attempt to update movie
@@ -22,7 +22,7 @@ Feature: Update movie details
     And invalid actor/author identity format list
     When attempt to update movie
     Then get invalid identity error
-  # to this
+
   Scenario: Update movie with invalid identity format
     Given an invalid identity format
     When attempt to update movie

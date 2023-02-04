@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker';
 import { defineFeature, loadFeature } from 'jest-cucumber';
 
 import { sequelize } from '../../../../infrastructure/sequelize';
+import '../../infrastructure/sequelize';
 
 import { UniqueID } from '../../../../core/domain/UniqueID';
 import { BadRequest, InvalidId, NotFound } from '../../../../core/logic/Errors';
@@ -68,6 +69,16 @@ defineFeature(feature, async (test) => {
     });
     dummyMovie.setActors(actorList.map((actor) => actor.id));
     dummyMovie.setAuthors(authorList.map((actor) => actor.id));
+    dummyMovie = await models.Movie.findByPk(dummyMovie.id, {
+      include: [
+        {
+          model: models.Actor
+        },
+        {
+          model: models.Author
+        }
+      ]
+    });
   });
 
   afterAll(async () => {
@@ -136,7 +147,7 @@ defineFeature(feature, async (test) => {
         new: actorList.map((actor) => actor.id)
       };
       authors = {
-        removes: authorList.splice(0, 2).map((author) => author.id)
+        removes: [authorList[0].id, authorList[1].id]
       };
     });
 
@@ -209,13 +220,14 @@ defineFeature(feature, async (test) => {
       expect(useCaseResult.value.isFailure).toBeFalsy();
 
       const resultValue = useCaseResult.value.getValue();
+
       expect(resultValue.id).toBeDefined();
       expect(resultValue.name).toBe(name);
       expect(resultValue.year).toBe(year);
       expect(resultValue.actors).toBeDefined();
-      expect(resultValue.actors.length).toBe(8);
+      expect(resultValue.actors.length).toBe(4);
       expect(resultValue.authors).toBeDefined();
-      expect(resultValue.authors.length).toBe(2);
+      expect(resultValue.authors.length).toBe(4);
     });
   });
 
