@@ -12,9 +12,9 @@
 ## Modules
 
 - Movies
-  |- Movie
-  |- Actor
-  |- Author
+  - Movie
+  - Actor
+  - Author
 
 ## Installation
 
