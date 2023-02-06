@@ -21,7 +21,7 @@
 Clone the repository:
 
 ```
-git clone https://github.com/lucky-ivanius/resource.git
+git clone https://github.com/lucky-ivanius/movie-library.git
 ```
 
 Install dependencies:
@@ -29,6 +29,15 @@ Install dependencies:
 ```
 npm install
 ```
+
+## Environment
+
+Rename ```.env.example``` to ```.env```
+
+### Variables
+
+- PORT = Application port (default:4000)
+- DATABASE_URL = PostgreSQL connection string
 
 ## Usage
 
